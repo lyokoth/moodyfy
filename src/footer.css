@@ -1,0 +1,13 @@
+.footer {
+    position : fixed;
+    display: flex;
+    justify-content: space-evenly;
+
+}
+.footer_text {
+    flex: 0.3;
+    display: flex;
+    align-items: center;
+    color: white;
+    max-width: 300px;
+}
