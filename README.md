@@ -2,8 +2,8 @@ Moodify - Spotify Mood-Based Playlist Creator
 ![]
 
 Table of Contents
-Introduction
-Features
+-- Introduction
+-- Features
 Demo
 Installation
 Usage
