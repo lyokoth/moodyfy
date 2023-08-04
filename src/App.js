@@ -2,8 +2,8 @@ import React from "react";
 import './App.css';
 import spotifylogo from './spotify.png';
 import Login from './Login';
-import Player from './Player';
 
+import WebPlayer from './WebPlayer';
 
 
 const code = new URLSearchParams(window.location.search).get("code")
@@ -22,7 +22,7 @@ function App() {
           
         <div className="App">
           <div className ="button">
-          { code ? <Player code={code} /> : <Login />}
+          { code ? <WebPlayer code={code} /> : <Login />}
         </div>
         </div>
         <hr />

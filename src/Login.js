@@ -6,7 +6,7 @@ import { loginUrl } from "./Spotify";
 function Login() {
     return (
      
-             <a href = {loginUrl}>Login</a>
+             <a href = {loginUrl}>Login With Spotify</a>
   
   
     );
