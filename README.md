@@ -1,56 +1,95 @@
-Moodify - Spotify Mood-Based Playlist Creator
-![]
+# Moodyfy
+## A mood based Application
 
-Table of Contents
--- Introduction
--- Features
-Demo
-Installation
-Usage
-Technologies
-Contributing
-License
-Introduction
-Welcome to Moodify - the Spotify Mood-Based Playlist Creator! Moodify is a React web application designed to help you create personalized playlists on Spotify based on your current mood. Whether you're feeling upbeat and energetic, calm and relaxed, or somewhere in between, Moodify has got you covered.
+![Firebase](https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white)
 
-The app leverages the Spotify Web API to access your playlists and song library, and it employs machine learning algorithms to analyze your mood and suggest the most suitable tracks. This is a fun and intuitive way to discover new music that perfectly fits your current emotional state.
+![Spotify](https://img.shields.io/badge/Spotify-1ED760?style=for-the-badge&logo=spotify&logoColor=white)
 
-Features
-Authenticate with your Spotify account to access your playlists and songs.
-Analyze your mood with a slider that has 5 moods.
-Generate customized playlists based on your mood preferences.
-Add or remove songs from the generated playlists.
-Save the mood-based playlists directly to your Spotify account.
-Demo
-Link to live demo
+[![Build Status]()
 
-Moodify Demo Gif
 
-Installation
-To run Moodify locally, follow these steps:
+## Table of contents:
+- To Do
+- Features
+- Demo/Screenshots
+- Installation
+- Usage
+- Technologies
+- Contributing
+- License
 
-Clone the repository: git clone https://github.com/your-username/moodify.git
-Change directory: cd moodify
-Install dependencies: npm install
-Usage
-Register your Spotify application and obtain the necessary credentials.
-Set up environment variables for your Spotify API credentials.
-Launch the development server: npm start
-Open the app in your browser: http://localhost:3000
-Technologies
-React
-Spotify Web API
-Machine Learning Library (e.g., TensorFlow, Scikit-learn)
-HTML5, CSS3
-JavaScript (ES6+)
-Contributing
-We welcome contributions to improve Moodify - the Spotify Mood-Based Playlist Creator. To contribute, please follow these steps:
+## To do 
+- Add machine learning algorithms to analyze mood and suggest the most suitable tracks.
 
-Fork the repository.
-Create a new branch for your feature: git checkout -b feature-name
-Make your changes and commit them: git commit -m "Add feature"
-Push your changes to the branch: git push origin feature-name
-Submit a pull request to the main repository.
-License
-This project is licensed under the MIT License. Feel free to use, modify, and distribute it as per the terms of the license.
+## Introduction
+Moodify is a React web application designed to help you create personalized playlists on Spotify based on your current mood. Whether you're feeling upbeat and energetic, calm and relaxed, or somewhere in between, Moodify has got you covered.
 
+The app leverages the Spotify Web API to access your playlists and song library.
+
+## Features
+- Authenticate with your Spotify account to access your playlists and songs.
+- Analyze your mood with a slider that has 5 moods.
+- Generate customized playlists based on your mood preferences.
+- Add or remove songs from the generated playlists.
+- Save the mood-based playlists directly to your Spotify account.
+
+![](gif) 
+## Technologies used
+
+Moodyfy is a mood-based Spotify playlist creator. It uses:
+
+- React
+- Spotify Web API
+- TensorFlow, Scikit-learn
+- HTML/CSS
+- [Express] - fast node.js network app framework 
+
+
+
+## Installation
+
+Moodyfy requires [Node.js](https://nodejs.org/) v10+ to run. To run the app locally, follow these steps:
+
+
+Clone the repository:
+```sh
+git clone https://github.com/your-username/moodyfy.git
+```
+
+Change directory and install depencencies
+
+```sh
+cd moodyfy
+npm install
+```
+
+
+## Development
+
+Want to contribute? Yay! Follow these steps:
+Fork the repository
+
+Create a new branch for the feature using:
+```sh
+git checkout -b feature-name
+```
+
+Make changes then commit:
+
+```sh
+git commit -m "Add feature"
+```
+
+Push changes:
+
+```sh
+git push origin feature-name
+```
+
+Submit pull request to main repository
+
+
+## License
+
+MIT
+## Screenshots
