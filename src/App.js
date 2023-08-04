@@ -4,7 +4,10 @@ import spotifylogo from './spotify.png';
 import Login from './Login';
 import Player from './Player';
 
-const code = URLSearchParams(window.location.search).get("code")
+
+
+const code = new URLSearchParams(window.location.search).get("code")
+
 
 
 function App() {
