@@ -1,13 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 import "./Sidebar.css";
 import SidebarOption from "./SidebarOption";
-import HomeIcon from "@material-ui/icons/Home";
-import SearchIcon from "@material-ui/icons/Search";
-import { LibraryMusic } from "@material-ui/icons";
-import { useDataLayerValue } from "./DataLayer";
+import HomeIcon from "@mui/icons-material/Home";
+import SearchIcon from "@mui/icons-material/Search";
+import { LibraryMusic } from "@mui/icons-material";
+
 
 function Sidebar() {
-  const [{ playlists }, dispatch] = useDataLayerValue();
+  const [{ playlists }, dispatch] = useState([]);
 
   const handleAddPlaylist = (newPlaylist) => {
     dispatch({

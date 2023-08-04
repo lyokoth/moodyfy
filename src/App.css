@@ -76,3 +76,7 @@
     white-space: normal;
     cursor: pointer;
 }
+
+.button:hover {
+  background-color: violet;
+}

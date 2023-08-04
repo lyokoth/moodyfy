@@ -1,9 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-import { DataLayer } from "./DataLayer";
+
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import { StateProvider } from "./StateContext";
 import reducer, { initialState } from "./reducer";
 
 const element = document.getElementById("root");
@@ -12,9 +13,9 @@ const root = ReactDOM.createRoot(element);
 
     root.render(
   <React.StrictMode>
-    <DataLayer initialState={initialState} reducer={reducer}>
+    <StateProvider initialState={initialState} reducer={reducer}>
      <App />
-    </DataLayer>
+    </StateProvider>
   </React.StrictMode>
  );
 

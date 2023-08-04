@@ -8,7 +8,7 @@ import {
     Shuffle,
     Repeat,
     VolumeDown,
-  } from "@material-ui/icons";
+  } from "@mui/icons-material";
   import { Grid, Slider } from "@material-ui/core";
 
 

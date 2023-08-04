@@ -1,56 +1,106 @@
-import React, {useEffect, useState} from "react";
+// aka Dashboard.js
+
+import { useState, useEffect } from "react"
+import useAuth from "./useAuth";
 import "./Player.css";
-import { useDataLayerValue } from "./DataLayer";
-import Login from "./Login";
+import TrackSearchResult from "./TrackSearchResults";
+import { Container, Form } from "react-bootstrap"
+import SpotifyWebApi from "spotify-web-api-node"
+import axios from "axios"
+import WebPlayer from "./WebPlayer"
 
-import Footer from "./Footer";
-import Body from "./Body";
-import SpotifyWebApi from "spotify-web-api-js";
-import { getTokenFromUrl } from "./Spotify";
+const spotifyApi = new SpotifyWebApi({
+  clientId: "d208be818d2242c89febb3207ba06e89",
+})
 
+export default function Player({ code }) {
+  const accessToken = useAuth(code)
+  const [search, setSearch] = useState("")
+  const [searchResults, setSearchResults] = useState([])
+  const [playingTrack, setPlayingTrack] = useState()
+  const [lyrics, setLyrics] = useState("")
 
-
-
-const spotify = new SpotifyWebApi();
-
-
-function Player() {
-  // eslint-disable-next-line no-unused-vars
-  const [{ token }, dispatch] = useDataLayerValue();
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [spotifyTokenState, setSpotifyTokenState] = useState("")
+  function chooseTrack(track) {
+    setPlayingTrack(track)
+    setSearch("")
+    setLyrics("")
+  }
 
   useEffect(() => {
-  const token = getTokenFromUrl();
-    if (token) {
-      dispatch({
-        type: "SET_SPOTIFY_TOKEN",
-        token: token,
-      });
-      setLoggedIn(true);
-  }
-}, [dispatch]);
+    if (!playingTrack) return
 
-   useEffect(() => {
-   if (spotifyTokenState !== "") {
-    setSpotifyTokenState(spotifyTokenState)
-  }
-}, [spotifyTokenState]);
+    axios
+      .get("http://localhost:3001/lyrics", {
+        params: {
+          track: playingTrack.title,
+          artist: playingTrack.artist,
+        },
+      })
+      .then(res => {
+        setLyrics(res.data.lyrics)
+      })
+  }, [playingTrack])
 
+  useEffect(() => {
+    if (!accessToken) return
+    spotifyApi.setAccessToken(accessToken)
+  }, [accessToken])
 
-  
+  useEffect(() => {
+    if (!search) return setSearchResults([])
+    if (!accessToken) return
+
+    let cancel = false
+    spotifyApi.searchTracks(search).then(res => {
+      if (cancel) return
+      setSearchResults(
+        res.body.tracks.items.map(track => {
+          const smallestAlbumImage = track.album.images.reduce(
+            (smallest, image) => {
+              if (image.height < smallest.height) return image
+              return smallest
+            },
+            track.album.images[0]
+          )
+
+          return {
+            artist: track.artists[0].name,
+            title: track.name,
+            uri: track.uri,
+            albumUrl: smallestAlbumImage.url,
+          }
+        })
+      )
+    })
+
+    return () => (cancel = true)
+  }, [search, accessToken])
+
   return (
-    <div className="player">
-      <div className="player__body">
-  
-        {loggedIn && <h1>Welcome to Moodify!</h1>}
-        {!loggedIn && <Login />}
-        <Body spotify={spotify} />
+    <Container className="d-flex flex-column py-2" style={{ height: "100vh" }}>
+      <Form.Control
+        type="search"
+        placeholder="Search Songs/Artists"
+        value={search}
+        onChange={e => setSearch(e.target.value)}
+      />
+      <div className="flex-grow-1 my-2" style={{ overflowY: "auto" }}>
+        {searchResults.map(track => (
+          <TrackSearchResult
+            track={track}
+            key={track.uri}
+            chooseTrack={chooseTrack}
+          />
+        ))}
+        {searchResults.length === 0 && (
+          <div className="text-center" style={{ whiteSpace: "pre" }}>
+            {lyrics}
+          </div>
+        )}
       </div>
-      <Footer />
+      <div>
+        <WebPlayer accessToken={accessToken} trackUri={playingTrack?.uri} />
       </div>
-  );
+    </Container>
+  )
 }
-      
-
-export default Player;
