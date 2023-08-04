@@ -93,3 +93,8 @@ Submit pull request to main repository
 
 MIT
 ## Screenshots
+
+## License
+
+MIT
+## Screenshots
