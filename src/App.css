@@ -78,5 +78,9 @@
 }
 
 .button:hover {
-  background-color: violet;
+  background-color: #E0BBE4
+}
+
+.about-button:hover {
+  background-color: #E0BBE4
 }

@@ -2,7 +2,7 @@ import React, {useState, createContext} from "react"
 
 import { Search } from "@mui/icons-material";
 import "./Header.css";
-import { Avatar } from "@mui/core";
+import { Avatar } from "@material-ui/core";
 
 export const UserContext = createContext();
 

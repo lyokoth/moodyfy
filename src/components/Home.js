@@ -1,7 +1,7 @@
 import React from "react";
-import './App.css';
+import './Home.css'
 
-import spotifylogo from './spotify.png';
+import spotifylogo from '../spotify.png'
 
 const authEndpoint = "https://accounts.spotify.com/authorize";
 const redirectUri = "http://localhost:3000/callback";

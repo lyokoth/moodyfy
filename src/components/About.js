@@ -1,6 +1,7 @@
 import React from "react";
-import App from "./App";
+import Home from "../components/Home";
 import './About.css';
+
 
 
 
@@ -13,7 +14,7 @@ function About() {
         <p>Our app utilizes the Spotify Web API to seamlessly access your playlists and song library, allowing you to discover new tracks that resonate with your feelings. 
          The app analyzes your mood by using a slider to select what you are feeling at the moment, and curate playlists filled with songs that perfectly complement your emotions.</p>
         <div class="button-back">
-            <a href={App}>Go Back</a>
+            <a href={Home}>Go Back</a>
             
         </div>
         </div>

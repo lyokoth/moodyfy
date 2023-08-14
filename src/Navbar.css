@@ -1,0 +1,53 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,400i,700");
+@import url("https://fonts.googleapis.com/css?family=Raleway:400,400i,700");
+
+.navbar {
+    background: linear-gradient(
+		to right,
+		rgba(76, 76, 76, 1) 0%,
+		rgba(102, 102, 102, 1) 0%,
+		rgba(43, 43, 43, 1) 0%,
+		rgba(33, 33, 33, 1) 46%,
+		rgba(33, 33, 33, 1) 59%,
+		rgba(17, 17, 17, 1) 98%,
+		rgba(17, 17, 17, 1) 100%
+	);
+    overflow: hidden;
+    padding-top: 100px;
+    font-family: "'Proxima Nova', sans-serif;"
+    
+}
+
+.navbar a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    align-items: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+
+
+.navbar a:hover {
+    background-color: #E0BBE4;
+    color: aliceblue;
+}
+
+.navbar a.active {
+    background-color: blueviolet;
+    color: aliceblue;
+}
+
+.navbar-brand {
+	font-size: 40px;
+	padding: 5px;
+	color: #388e3c !important;
+    align-content: right;
+    font-family: "'Proxima Nova', sans-serif;"
+}
+.logo {
+    flex: right;
+    align-content: right;
+
+}

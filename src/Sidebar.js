@@ -48,7 +48,7 @@ function Sidebar() {
       <br />
       <strong className="sidebar__title">PLAYLISTS</strong>
       <hr />
-      <div class="add-button">
+      <div className="add-button">
             onClick={addNewPlaylist}
           </div>
       {playlists?.items?.map((playlist) => (

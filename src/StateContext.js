@@ -1,19 +1,11 @@
-import React, { createContext, useContext, useReducer } from "react";
-import reducer, { initialState } from "./reducer";
+import { createContext, useContext, useReducer } from "react";
 
-// Create a new context
-const StateContext = createContext();
+export const StateContext = createContext();
 
-// Create a custom hook to access the context value
-export const useStateValue = () => useContext(StateContext);
+export const StateProvider = ({ initialState, reducer, children }) => (
+  <StateContext.Provider value={useReducer(reducer, initialState)}>
+    {children}
+  </StateContext.Provider>
+);
 
-// Create the StateProvider component to wrap your App and provide the state and dispatch
-export const StateProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
-
-  return (
-    <StateContext.Provider value={{ state, dispatch }}>
-      {children}
-    </StateContext.Provider>
-  );
-};
+export const useStateProvider = () => useContext(StateContext);

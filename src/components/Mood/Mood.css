@@ -1,0 +1,178 @@
+.body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.navbar {
+    background: linear-gradient(
+		to right,
+		rgba(76, 76, 76, 1) 0%,
+		rgba(102, 102, 102, 1) 0%,
+		rgba(43, 43, 43, 1) 0%,
+		rgba(33, 33, 33, 1) 46%,
+		rgba(33, 33, 33, 1) 59%,
+		rgba(17, 17, 17, 1) 98%,
+		rgba(17, 17, 17, 1) 100%
+	);
+    overflow: hidden;
+    padding-top: 50px;
+    font-family: "'Proxima Nova', sans-serif;"
+    
+}
+
+.navbar a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    align-items: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+
+
+.navbar a:hover {
+    background-color: #E0BBE4;
+    color: aliceblue;
+}
+
+.navbar a.active {
+    background-color: blueviolet;
+    color: aliceblue;
+}
+
+.navbar-brand {
+	font-size: 40px;
+	padding: 5px;
+	color: #388e3c !important;
+    align-content: right;
+    font-family: "'Proxima Nova', sans-serif;"
+}
+.logo {
+    flex: right;
+    align-content: right;
+
+}
+
+  
+  .mood-header {
+      margin: 25px;
+      font-size:70px;
+  }
+  
+  .drag {
+      margin-left:965px;
+  }
+  
+  .slidecontainer {
+      margin-top: 50px;
+      width: 100%;
+  }
+  
+  .slider {
+      --webkit-appearance: none;
+      width: 80%;
+      height: 15px;
+      border-radius: 5px;
+      background: linear-gradient(90deg, rgba(100,65,165,0.5956757703081232) 0%, rgba(0,81,128,1) 100%);
+      outline: none;
+      opacity: 0.7;
+      -webkit-transition: .2s;
+      transition: opacity .2s;
+  }
+  
+  .slider:hover {
+      opacity: 1;
+  }
+  
+  .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width:37px;
+      height:37px;
+      border-radius:50%;
+      background: linear-gradient(90deg, rgba(100,65,165,0.5956757703081232) 0%, rgba(0,81,128,1) 100%);
+      cursor:pointer;
+  }
+  
+  form[type=text] {
+      margin-bottom: 30px;
+      border: double;
+      border-bottom: 2px pink;
+      background: none;
+      font-size:200%;
+      color:violet;
+      text-align: center;
+      margin-top:-30px;
+      margin-left: 10px;
+      border: dotted;
+    border-bottom: #191414
+  }
+  
+  form.btn.btn-secondary.submit {
+      margin:15px;
+      margin-top:-7px;
+      padding: 18px 48px 16px;
+      background-color: violet;
+  }
+  
+  img.icon {
+      margin-top: -10px;
+      margin-bottom:-20px;
+  }
+  
+  form.btn.btn-secondary:hover {
+      background: blueviolet;
+      color:black;
+  }
+
+
+
+.submit {
+    background: linear-gradient(90deg, rgba(100,65,165,0.5956757703081232) 0%, rgba(0,81,128,1) 100%);
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+    background-color: #7c25f8;
+    font-size: 14px;
+    line-height: 1;
+    border-radius: 50px;
+    padding: 18px 48px 16px;
+    transition-property: background-color;
+    transition-duration: .3s;
+    border-width: 0;
+    letter-spacing: 2px;
+    min-width: 160px;
+    text-transform: uppercase;
+    white-space: normal;
+    cursor: pointer;
+  }
+
+  .submit:hover {
+    color: #9b78cc;
+  }
+
+
+  .button-back {
+    color: #fff;
+    background: linear-gradient(90deg,#7c25f8,#7c25f8,#7c247c);
+    font-size: 14px;
+    line-height: 1;
+    border-radius: 50px;
+    padding: 18px 48px 16px;
+    transition-property: background-color;
+    transition-duration: .3s;
+    border-width: 0;
+    letter-spacing: 2px;
+    min-width: 160px;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+    background-color: #7c25f8;
+    text-transform: uppercase;
+    white-space: normal;
+    cursor: pointer;
+  }
+
+  .button-back:hover {
+    color: #9b78cc;
+  }
