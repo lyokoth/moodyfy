@@ -105,3 +105,9 @@ MIT
 - Login page:
 
 ![demogif](https://github.com/lyokoth/moodyfy/blob/master/src/images/screenshot%20login%20page.gif)
+
+
+- Authentication page
+
+
+  
