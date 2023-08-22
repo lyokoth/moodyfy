@@ -21,6 +21,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## To do 
 - Add machine learning algorithms to analyze mood and suggest the most suitable tracks.
+- Deploy to Firebase 🚀
+  
 
 ## Introduction
 Moodify is a React web application designed to help you create personalized playlists on Spotify based on your current mood. Whether you're feeling upbeat and energetic, calm and relaxed, or somewhere in between, Moodify has got you covered.
