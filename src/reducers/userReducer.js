@@ -26,4 +26,3 @@ const initialState = {
   };
   
   export default userReducer;
-  

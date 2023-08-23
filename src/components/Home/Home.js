@@ -1,5 +1,5 @@
 import React from "react";
-import './App.css';
+import './Home.css'
 
 import spotifylogo from './spotify.png';
 

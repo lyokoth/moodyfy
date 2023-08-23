@@ -19,6 +19,10 @@
     
 }
 
+.h2 {
+    font-weight: lighter;
+}
+
 .navbar a {
     float: left;
     display: block;
@@ -71,9 +75,9 @@
   .slider {
       --webkit-appearance: none;
       width: 80%;
-      height: 15px;
+      height: 40px;
       border-radius: 5px;
-      background: linear-gradient(90deg, rgba(100,65,165,0.5956757703081232) 0%, rgba(0,81,128,1) 100%);
+      color: #9b78cc;
       outline: none;
       opacity: 0.7;
       -webkit-transition: .2s;
@@ -94,19 +98,18 @@
       cursor:pointer;
   }
   
-  form[type=text] {
-      margin-bottom: 30px;
-      border: double;
-      border-bottom: 2px pink;
-      background: none;
-      font-size:200%;
-      color:violet;
-      text-align: center;
-      margin-top:-30px;
-      margin-left: 10px;
-      border: dotted;
-    border-bottom: #191414
-  }
+  input[type="text"] {
+    margin-bottom: 30px;
+    border: 2px solid pink;
+    background: none;
+    font-size: 200%;
+    color: violet;
+    text-align: center;
+    margin-top: -30px;
+    margin-left: 10px;
+    border-bottom: 2px solid #191414;
+}
+
   
   form.btn.btn-secondary.submit {
       margin:15px;
@@ -118,13 +121,30 @@
   img.icon {
       margin-top: -10px;
       margin-bottom:-20px;
+      height: 200px; 
+      width: 200px;
+      align-items: center;
   }
   
+  .img img {
+    max-width: 100%;
+    height: auto;
+  }
   form.btn.btn-secondary:hover {
       background: blueviolet;
       color:black;
   }
 
+  .icon {
+    display: block; /* Ensure it's a block element */
+    width: 500px; /* Set the width */
+    height: 500px; /* Set the height */
+    border: 2px dotted #9b78cc; /* Add a border */
+    border-radius: 10px; /* Add rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+    margin: 20px auto; /* Center the image and add some margin */
+  }
+  
 
 
 .submit {
@@ -175,4 +195,10 @@
 
   .button-back:hover {
     color: #9b78cc;
+  }
+
+
+  mood-slider {
+    color: #9b78cc;
+    font-size: large;
   }

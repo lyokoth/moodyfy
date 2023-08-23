@@ -1,6 +1,6 @@
-@import url("https://fonts.googleapis.com/css?family=Montserrat:400,400i,700");
-@import url("https://fonts.googleapis.com/css?family=Raleway:400,400i,700");
-
+.body {
+  font-family: "'Proxima Nova', sans-serif";
+}
 .navbar {
     background: linear-gradient(
 		to right,
@@ -14,8 +14,13 @@
 	);
     overflow: hidden;
     padding-top: 100px;
-    font-family: "'Proxima Nova', sans-serif;"
+    font-family: "'Proxima Nova', sans-serif";
     
+}
+
+.main {
+  font-family: "'Proxima Nova', sans-serif";
+  font-weight: lighter;
 }
 
 .navbar a {
@@ -51,3 +56,24 @@
     align-content: right;
 
 }
+
+.flex-column {
+    flex: auto;
+}
+
+.navbar-toggler-icon {
+    background-color: #ffffff; /* Customize the color of the hamburger menu icon */
+  }
+  
+  @media (max-width: 991px) {
+    /* Apply styles when the screen width is 991px or less */
+    .navbar-nav {
+      flex-direction: column;
+      align-items: center;
+      margin-top: 10px;
+    }
+  
+    .navbar-nav .nav-link {
+      margin: 8px 0;
+    }
+  }

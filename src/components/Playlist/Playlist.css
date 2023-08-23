@@ -1,0 +1,62 @@
+.title {
+    margin-top: 5%;
+  
+    
+}
+
+
+.text {
+   margin-top: 10%;
+}
+
+
+.spotify-btn{
+    color: #fff;
+    background-color: #9b78cc;
+    font-size: 14px;
+    line-height: 1;
+    border-radius: 50px;
+    padding: 18px 48px 16px;
+    transition-property: background-color;
+    transition-duration: .3s;
+    border-width: 0;
+    letter-spacing: 2px;
+    min-width: 160px;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+  
+    text-transform: uppercase;
+    white-space: normal;
+    cursor: pointer;
+
+  }
+
+  .spotify-btn:hover {
+    background-color: #7c25f8;
+  }
+.moody-btn {
+        color: #fff;
+        background: linear-gradient(to right, #d1b2fc, #9b78cc, #6531ad);
+        font-size: 14px;
+        line-height: 1;
+        border-radius: 50px;
+        padding: 18px 48px 16px;
+        transition-property: background-color;
+        transition-duration: .3s;
+        border-width: 0;
+        letter-spacing: 2px;
+        min-width: 160px;
+        -o-transition: all .4s ease-in-out;
+        -webkit-transition: all .4s ease-in-out;
+        transition: all .4s ease-in-out;
+        align-items: center;
+        text-transform: uppercase;
+        white-space: normal;
+        cursor: pointer;
+   
+      }
+
+      .moody-btn:hover {
+        background-color: #7c25f8; 
+      }

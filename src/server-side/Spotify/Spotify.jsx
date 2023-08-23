@@ -2,11 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import Sidebar from "./Sidebar";
 import styled from "styled-components";
 import Footer from "./Footer";
-import Navbar from "./Navbar";
+import Navbar from "../../components/Navibar/Navibar";
 import axios from "axios";
-import { useStateProvider } from "./StateContext";
+import { useStateProvider } from "../../StateContext";
 import Body from "./Body";
-import { reducerCases } from "./utils/Constants";
+import { reducerCases } from "../../utils/Constants";
 
 export default function Spotify() {
   const [{ token }, dispatch] = useStateProvider();

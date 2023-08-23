@@ -1,13 +1,13 @@
 // aka Dashboard.js
 
 import { useState, useEffect } from "react"
-import useAuth from "./useAuth";
+import useAuth from "../../useAuth";
 import "./Player.css";
-import TrackSearchResult from "./TrackSearchResults";
+import TrackSearchResult from "../TrackSearchResults/TrackSearchResults";
 import { Container, Form } from "react-bootstrap";
 import SpotifyWebApi from "spotify-web-api-node";
 import axios from "axios"
-import WebPlayer from "./WebPlayer"
+import WebPlayer from "../../WebPlayer"
 
 const spotifyApi = new SpotifyWebApi({
   clientId: "d208be818d2242c89febb3207ba06e89",

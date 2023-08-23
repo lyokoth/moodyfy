@@ -1,13 +1,15 @@
-import React from 'react';
-import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Login from './Login';
-import axios from 'axios';
-import Navbar from './Navbar';
+import React , { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import About from './components/About';
+
+import axios from 'axios';
+import Navibar from './Navibar';
+import WebPlayer from './components/Player/WebPlayer';
 import Mood from './components/Mood/Mood';
-import Player from './Player';
+import Home from './components/Home/Home';
+import About from './pages/About';
+import Playlist from './components/Playlist/Playlist';
+
 
 const client_id ="d208be818d2242c89febb3207ba06e89";
 const client_secret = ""
@@ -41,31 +43,49 @@ if (code) {
   console.log("Please login to Spotify to see access token.")
 }
 
-function Home() {
-  return (
-  <Login />
-  );
-}
-
 
 function Footer() {
   return <Footer />
 }
 
 function App() {
+  const [token, setToken] = useState('');
+  function Login() {
+    return (
+      <> 
+      { (token === '') ? <Login/> : <WebPlayer token={token} /> }
+      </>
+    )
+  }
+
+  useEffect(() => {
+    async function getToken() {
+      const response = await fetch('/auth/token');
+      const json = await response.json();
+      setToken(json.access_token);
+    }
+
+    getToken();
+
+
+  }, []);
+
+
   return (
+    
     <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/player" element={<Player />} />
-        <Route path="/mood" element={<Mood />} />
-        <Route path="/about" element={<About />} />
-      </Routes>
-    </Router>
+    <Navibar />
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/webplayer" element={<WebPlayer />} />
+      <Route path="/mood" element={<Mood />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/playlist" element={<Playlist />} />
+   
+    </Routes>
+  </Router>
+   
   );
-   }
-
-
+}
 
 export default App;

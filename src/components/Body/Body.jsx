@@ -1,9 +1,9 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { useStateProvider } from "./StateContext";
+import { useStateProvider } from "../../StateContext";
 
-import { reducerCases } from "./utils/Constants";
+import { reducerCases } from "../../utils/Constants";
 export default function Body({ headerBackground }) {
   const [{ token, selectedPlaylist, selectedPlaylistId }, dispatch] =
     useStateProvider();

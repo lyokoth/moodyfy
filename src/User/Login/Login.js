@@ -1,7 +1,10 @@
 import React from "react";
-import './Home.css'
+import './App.css';
 
-import spotifylogo from '../spotify.png'
+import spotifylogo from './spotify.png';
+
+
+
 
 const authEndpoint = "https://accounts.spotify.com/authorize";
 const redirectUri = "http://localhost:3000/callback";
@@ -13,6 +16,8 @@ export default function Login({ onTokenRetrieved }) {
     "user-read-recently-played",
     "user-read-playback-state",
     "user-top-read",
+    "user-read-private",
+    "user-read-email",
     "user-modify-playback-state",
     "playlist-modify-public",
     "playlist-modify-private",
@@ -24,6 +29,8 @@ export default function Login({ onTokenRetrieved }) {
   )}&response_type=token&show_dialog=true`;
 
   // Component JSX and logic here
+
+
   return (
     <div className="App">
       <header className="App-header">
@@ -31,9 +38,9 @@ export default function Login({ onTokenRetrieved }) {
         <p>
           Welcome to Moodify!
         </p>
-        <div className="button">
+        <button className="button">
           <a href={loginUrl} onClick={onTokenRetrieved}>Login With Spotify</a>
-          </div>
+          </button>
         </header>
         </div>
   )

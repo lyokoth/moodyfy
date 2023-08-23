@@ -1,5 +1,5 @@
 # Moodyfy
-## A mood based Application
+## A mood based- Spotify Application
 
 ![Firebase](https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white) ![Spotify](https://img.shields.io/badge/Spotify-1ED760?style=for-the-badge&logo=spotify&logoColor=white)
 
