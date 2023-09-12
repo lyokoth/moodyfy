@@ -1,27 +1,30 @@
-import React from 'react'
-import './Playlist.css';
-import SpotifyWebApi from 'spotify-web-api-node';
-import Mood from '../Mood/Mood';
-import { Link } from 'react-router-dom';
 
-
-const spotify = new SpotifyWebApi();
+import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import SpotifyWebApi from 'spotify-web-api-js';
+import { Link} from 'react-router-dom';
 
 
 export default function Playlist() {
- const selectedMood = Mood();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const selectedMood = searchParams.get('mood');
+ 
 
+  useEffect(() => {
 
+    const spotify = new SpotifyWebApi();
+    // Fetch recommendations using selectedMood
     spotify.getRecommendations({ seed_genres: [selectedMood] })
-    .then(response => {
-      // Handle the successful response here
-      console.log(response);
-    })
-    .catch(error => {
-      // Handle the error here
-      console.error(error);
-    });
-  
+      .then(response => {
+        // Handle the successful response here
+        console.log(response);
+      })
+      .catch(error => {
+        // Handle the error here
+        console.error(error);
+      });
+  }, [selectedMood]);
 
   return (
     <div>

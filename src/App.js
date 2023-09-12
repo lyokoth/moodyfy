@@ -1,91 +1,68 @@
-import React , { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-
-
-import axios from 'axios';
+import React, { useCallback, useEffect } from 'react';
+import Home from './components/Home/Home';
 import Navibar from './Navibar';
 import WebPlayer from './components/Player/WebPlayer';
-import Mood from './components/Mood/Mood';
-import Home from './components/Home/Home';
 import About from './pages/About';
 import Playlist from './components/Playlist/Playlist';
+import Mood from './components/Mood/Mood';
+import Callback from './components/Callbacks/Callback';
+import { useStateProvider } from './utils/StateProvider';
+import { reducerCases } from './utils/Constants';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import axios from 'axios';
 
+export default function App() {
+  const [{ token }, dispatch] = useStateProvider();
 
-const client_id ="d208be818d2242c89febb3207ba06e89";
-const client_secret = ""
-const redirect_uri= "http://localhost:3000/callback";
-const code = new URLSearchParams(window.location.search).get('code');
-
-if (code) {
-  const token_url = 'https://service-auth-server.com/token';
-
-  const request = new URLSearchParams({
-    grant_type: 'authorization_code',
-    code: code,
-    redirect_uri: redirect_uri,
-    client_id: client_id,
-    client_secret: client_secret
-  });
-
-  axios.post(token_url, request)
-      .then(response => {
-        const access_token = response.data.access_token;
-        const expires_in = response.data.expires_in;
-
-
-        console.log('Access Token:', access_token);
-        console.log('Expires In:', expires_in);
-      })
-      .catch(error => {
-        console.error('Error fetching access token:, error');
-      });
-} else {
-  console.log("Please login to Spotify to see access token.")
-}
-
-
-function Footer() {
-  return <Footer />
-}
-
-function App() {
-  const [token, setToken] = useState('');
-  function Login() {
-    return (
-      <> 
-      { (token === '') ? <Login/> : <WebPlayer token={token} /> }
-      </>
-    )
-  }
+  // Define the onTokenRetrieved function to handle the retrieved token
+  const onTokenRetrieved = useCallback((accessToken) => {
+    dispatch({ type: reducerCases.SET_TOKEN, token: accessToken });
+  }, [dispatch]);
 
   useEffect(() => {
-    async function getToken() {
-      const response = await fetch('/auth/token');
-      const json = await response.json();
-      setToken(json.access_token);
+    const hash = window.location.hash;
+    if (hash) {
+      const token = hash.substring(1).split("&")[0].split("=")[1];
+      if (token) {
+        // Call the onTokenRetrieved function to handle the token
+        onTokenRetrieved(token);
+      }
     }
+    document.title = "Moodify";
+  },[onTokenRetrieved] );
 
-    getToken();
-
-
-  }, []);
-
+  useEffect(() => {
+    if (token) {
+      axios
+        .get('https://api.spotify.com/v1/me', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        })
+        .then((response) => {
+          // You may want to perform additional actions here if needed
+          <Callback />
+        })
+        .catch((error) => {
+          console.error("Could not find Spotify Token.")
+        });
+    }
+  }, [token]);
 
   return (
-    
     <Router>
-    <Navibar />
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/webplayer" element={<WebPlayer />} />
-      <Route path="/mood" element={<Mood />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/playlist" element={<Playlist />} />
-   
-    </Routes>
-  </Router>
-   
+      <Navibar />
+      <Routes>
+        { token ? (
+          <Route path="/callback" element={<Callback />} />
+        ): null}
+        <Route path="/" element={<Home />} />
+        <Route path="/webplayer" element={<WebPlayer />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/mood" element={<Mood />} />
+        <Route path="/playlist" element={<Playlist />} />
+      </Routes>
+    </Router>
   );
 }
-
-export default App;

@@ -4,9 +4,10 @@ import SidebarOption from "./SidebarOption";
 import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
 import { LibraryMusic } from "@mui/icons-material";
+import Playlists from "../Playlists/Playlists";
 
 
-function Sidebar() {
+export default function Sidebar() {
   const [{ playlists }, dispatch] = useState([]);
 
   const handleAddPlaylist = (newPlaylist) => {
@@ -36,11 +37,10 @@ function Sidebar() {
 
   return (
     <div className="sidebar">
-      <img
-        
-        alt="Spotify logo"
-      />
-
+      <strong className="sidebar__title">Main</strong>
+      <br /> 
+      <hr />
+      
       <SidebarOption title="Home" Icon={HomeIcon} />
       <SidebarOption title="Search" Icon={SearchIcon} />
       <SidebarOption title="Your Library" Icon={LibraryMusic} />
@@ -48,16 +48,20 @@ function Sidebar() {
       <strong className="sidebar__title">PLAYLISTS</strong>
       <hr />
       <div className="add-button">
-            onClick={addNewPlaylist}
+            <div className="button">
+            Add New Playlist{addNewPlaylist}
+            </div>
           </div>
+ 
       {playlists?.items?.map((playlist) => (
         <SidebarOption title={playlist.data_title}
                         key = {playlist.id}
                         onClick={() => sidebarOptionClick(playlist.id)} 
                         />
                             ))}
+                            <Playlists />
                             </div>
   );
       }
 
-export default Sidebar;
+      

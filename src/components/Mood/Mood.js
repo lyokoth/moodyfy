@@ -1,101 +1,114 @@
 import React, { useEffect, useState } from "react";
 import "./Mood.css";
-
 import { Link } from "react-router-dom";
 import SpotifyWebApi from "spotify-web-api-js";
+
+import axios from "axios";
+import { reducerCases } from "../../utils/Constants";
+import { useStateProvider } from "../../utils/StateProvider";
+// images
+import depressed from './images/depressed.jpg';
+import sad from './images/sad.jpg';
+import happy from './images/happy.png';
+import elated from './images/elated.jpg';
 
 const spotifyApi = new SpotifyWebApi();
 
 function Mood() {
-    const [moodValue, setMoodValue] = useState(0.5);
-    const [user_id, setUserId] = useState(null);
-    const [displayName, setDisplayName] = useState("")
+  const [moodValue, setMoodValue] = useState(0.5);
+  const [{ token }, dispatch] = useStateProvider();
+
+  // Function to fetch user data
+  useEffect(() => {
+    const getUserInfo = async () => {
+      const { data } = await axios.get("https://api.spotify.com/v1/me", {
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+      });
+      const userInfo = {
+        userId: data.id,
+        userUrl: data.external_urls.spotify,
+        name: data.display_name,
+      };
+      dispatch({ type: reducerCases.SET_USER, userInfo });
+    };
+    getUserInfo();
+  }, [dispatch, token]);
   
+  // Function to create a mood-based playlist
+  async function fetchMood(moodValue) {
+    try {
+      // Ensure you have a valid access_token
+      const access_token = "YOUR_ACCESS_TOKEN"; // Replace with your access token
 
-    useEffect(() => {
-        // Fetch the user's display name using the Spotify Web API
-        async function fetchDisplayName() {
-            try {
-                const response = await spotifyApi.getMe();
-                setDisplayName(response.display_name);
-            } catch (error) {
-                console.error("Error fetching user display name:", error);
-            }
-        }
+      // Construct the playlist creation URL
+      const playlist_url = `https://api.spotify.com/v1/me/playlists`;
 
-        fetchDisplayName();
-    }, []);
+      // Create the playlist
+      const response = await fetch(playlist_url, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${access_token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: "Moodify Playlist",
+          public: true,
+          description: 'Playlist created in Moodify',
+        }),
+      });
 
+      if (response.ok) {
+        const data = await response.json();
+        const playlist_id = data.id;
 
-    useEffect(() => {
-        async function fetchUserId() {
-            try {
-                const response_id = await spotifyApi.getMe();
-                setUserId(response_id.id);
-            } catch (error) {
-                console.error("Error fetching User ID:", error);
-            }
-        }
+        // Get mood-based recommendations
+        const recommendationsResponse = await spotifyApi.getRecommendations({
+          seed_tracks: ["10FC7rI5KzGmyTHowOoebw"],
+          target_valence: moodValue,
+        });
 
-        fetchUserId();
-    }, []);
+        const trackUri = recommendationsResponse.tracks.map((track) => track.uri);
 
-    const moodChange = (e) => {
-        const newMoodValue = parseFloat(e.target.value);
-        setMoodValue(newMoodValue);
-        fetchMood(newMoodValue);
-    };
+        // Add tracks to the playlist
+        await spotifyApi.addTracksToPlaylist(playlist_id, trackUri);
 
-    const fetchMood = async (moodValue) => {
-         try {
-            if (!user_id) {
-                console.error("User Id not available.");
-                return;
-            
-        }
-            spotifyApi.setAccessToken('BQDupEJLOHJuG5DfvxnRYNVxn9Jq9ndIZ2LfikhscKC1DbmsneQSGljKl5BnTmqiDCZpF35H69ue0sehGuyfenT6-3WaNZox9c-S3RYMccTTUszwd8MA-jd_QcsAAFw98qqjsfxuM9FY3Ynl55nRUyoUGb35CUUvmBOQjBhbEnd3uL_wT7-gN9_keSH-orFWT6wo0fYjLEMYP44wKVpe2pc5WPJ1G1EZlcmVQzQBMec10vBUs0qGDfii628jE0WtcCPZWpbpSM8sTw&token_type=Bearer&expires_in=3600');
-
-            const response = await spotifyApi.createPlaylist("21avdtxygavnpmwvjdymer53a", {
-                name: "My Moodify Playlist",
-                public: true,
-                description: "Playlist retrieved from Moodify",
-            });
-            const playlist_id = response.id;
-
-            const recommendationsResponse = await spotifyApi.getRecommendations({
-                 seed_tracks: ["10FC7rI5KzGmyTHowOoebw"],
-                 target_valence: moodValue,
-                
-            });
-
-            const trackUri = recommendationsResponse.tracks.map((track) => track.uri);
-          
-       
-            await spotifyApi.addTracksToPlaylist(playlist_id, trackUri);
-
-            console.log("Your Playlist has been created!");
-        } catch (error) {
-            console.error('Error fetching playlists: ', error);
-        }
-    };
-
-    let iconSrc = "../Mood/images/spotify1.png";
-
-    if (moodValue <= 0.15) {
-        iconSrc = "../Mood/images/depressed.jpg";
-    } else if (moodValue <= 0.50) {
-        iconSrc = "../Mood/images/sad.jpg";
-    } else if (moodValue <= 0.85) {
-        iconSrc = "../Mood/images/happy.png";
-    } else {
-        iconSrc = "../Mood/images/elated.jpg";
+        console.log("Your Playlist has been created!");
+      } else {
+        console.error('Error creating playlist:', response.status);
+      }
+    } catch (error) {
+      console.error('Error creating playlist:', error);
     }
+  }
+
+  // Handle mood change
+  const moodChange = async (e) => {
+    const newMoodValue = parseFloat(e.target.value);
+    setMoodValue(newMoodValue);
+    await fetchMood  (newMoodValue);
+  };
+
+
+  let iconSrc = happy;
+  if (moodValue <= 0.15) {
+    iconSrc = depressed;
+  } else if (moodValue <= 0.5) {
+    iconSrc = sad;
+  } else if (moodValue <= 0.85) {
+    iconSrc = happy;
+  } else {
+    iconSrc = elated;
+  }
+
 
     return (
         <div className="container-fluid text-center">
             <div className="row">
                 <div className="col">
-                    <h1 className="mood-header">Hello, {displayName || "User"} ! </h1>
+                    <h1 className="mood-header">Hello, $`{"User"} ! </h1>
                 </div>
             </div>
             <div className="container-fluid text-center">

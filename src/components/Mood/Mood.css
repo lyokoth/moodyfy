@@ -60,7 +60,7 @@
   
   .mood-header {
       margin: 25px;
-      font-size:70px;
+      font-size:60px;
   }
   
   .drag {
@@ -121,8 +121,8 @@
   img.icon {
       margin-top: -10px;
       margin-bottom:-20px;
-      height: 200px; 
-      width: 200px;
+      height: 350px; 
+      width: 350px;
       align-items: center;
   }
   

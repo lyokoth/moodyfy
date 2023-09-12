@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import './WebPlayer.css';
+import './Player'; 
+import '../SideBar/Sidebar';
 import Sidebar from '../SideBar/Sidebar';
 
 
-
-function WebPlayer(props) {
+function WebPlayer(props , token) {
   const [player, setPlayer] = useState(undefined);
   const [is_paused, setPaused] = useState(false);
+
+
 
   const track = {
     name: '',
@@ -59,10 +62,7 @@ function WebPlayer(props) {
 
   return (
     <>
-    <div className="sidebar">
-      <Sidebar />
-    </div>
-    
+      <Sidebar>
       <div className="container">
         <div className="main-wrapper">
           <img
@@ -107,6 +107,7 @@ function WebPlayer(props) {
           </div>
         </div>
       </div>
+      </Sidebar>
     </>
   );
 }
