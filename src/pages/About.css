@@ -19,7 +19,7 @@ body {
     margin-top: 100px;
     margin-left: 50px;
     margin-right:50px;
-}
+  }
 
 
 .button-back :hover {
@@ -33,7 +33,7 @@ body {
   color: #E0BBE4;
 }
 
-.button-back {
+.button-back > a {
   color: #fff;
   background-color: #7c25f8;
   font-size: 14px;
@@ -48,4 +48,17 @@ body {
   text-transform: uppercase;
   white-space: normal;
   cursor: pointer;
+  text-decoration: none;
+
+}
+
+.github-link > a {
+  color: #9b78cc;
+  align-content: right;
+  border-radius: 5px;
+  line-height: 1;
+  padding: 5px, 5px, 5px;
+  font-size: 20px;
+  text-decoration: none;
+  font-weight: bolder;
 }

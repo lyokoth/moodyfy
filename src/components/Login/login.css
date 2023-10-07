@@ -12,16 +12,16 @@
   
   .login > a {
     color: #fff;
-    background-color: #7c25f8;
+    background-color:  #9b78cc;
     padding: 20px;
     border-radius: 99px;
     font-weight: 600;
     text-decoration: none;
   }
 
-  .button {
+  .button > a {
     color: #fff;
-      background-color: #7c25f8;
+      background-color:  #9b78cc;
       font-size: 14px;
       line-height: 1;
       border-radius: 500px;
@@ -34,6 +34,7 @@
       text-transform: uppercase;
       white-space: normal;
       cursor: pointer;
+      text-decoration: none;
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -55,7 +56,7 @@
   
   .button {
     color: #fff;
-      background-color: #7c25f8;
+      background-color:  #9b78cc;
       font-size: 14px;
       line-height: 1;
       border-radius: 500px;
@@ -68,6 +69,7 @@
       text-transform: uppercase;
       white-space: normal;
       cursor: pointer;
+      text-decoration: none;
   }
   
   

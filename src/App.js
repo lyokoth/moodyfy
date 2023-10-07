@@ -11,6 +11,10 @@ import { reducerCases } from './utils/Constants';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import axios from 'axios';
 
+// import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+ // import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 export default function App() {
   const [{ token }, dispatch] = useStateProvider();
 
@@ -64,5 +68,8 @@ export default function App() {
         <Route path="/playlist" element={<Playlist />} />
       </Routes>
     </Router>
+
+
+
   );
 }

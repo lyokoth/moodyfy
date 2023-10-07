@@ -1,27 +1,20 @@
-import React, { useCallback, useEffect } from 'react';
-
+import React, { useCallback, useEffect, useState } from 'react';
+import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import  set_playlist_id  from '../../utils/reducer';
-
-import { Link }  from 'react-router-dom';
-import  Login  from '../Login/Login';
-
-
-export default function Playlist({ tracks }) {
-  const dispatch = useDispatch();
-  const token = useSelector((state) => state.token);
-  let playlistId = useSelector((state) => state.playlistId);
-
-const getHeaders = (token) => ({
-  Authorization: 'Bearer ' + token,
+import { set_playlist_id } from '../reducer';
+import {spotifyLogo } from '../../Spotify_icon.svg.png';
+import Button from './Button';
+import { Login } from '../Login/Login';
+const getHeaders = (accessToken) => ({
+  Authorization: 'Bearer ' + accessToken,
   'Content-Type': 'application/json',
 });
 
-const populatePlaylist = async (playlistId, tracks, token) => {
+const populatePlaylist = async (playlistId, tracks, accessToken) => {
   const populatePlaylistUrl = `https://api.spotify.com/v1/playlists/${playlistId}/tracks`;
   await fetch(populatePlaylistUrl, {
     method: 'PUT',
-    headers: getHeaders(token),
+    headers: getHeaders(accessToken),
     body: JSON.stringify({
       uris: tracks.map((track) => track.uri),
     }),
@@ -30,42 +23,53 @@ const populatePlaylist = async (playlistId, tracks, token) => {
 };
 
 const createPlaylist = async (accessToken, userId) => {
-  const url = `https://api.spotify.com/v1/users/${userId}/playlists?`;
+  const url = `https://api.spotify.com/v1/users/${userId}/playlists`;
   const res = await fetch(url, {
     method: 'POST',
-    headers: getHeaders(token),
+    headers: getHeaders(accessToken),
     body: JSON.stringify({
       name: 'My Moodify Playlist',
       description: "Playlist created in Moodify",
-      public: true
+      public: true,
     }),
-  }).then((res) => res.json());
-  //TODO handle error
+  }).then((res) => res.json())
+    
   return res.id;
 };
 
+const SpotifyIcon = styled.img`
+  height: 1.2rem;
+  width: 1.2rem;
+  margin-left: 0.5rem;
+`;
+
+export default ({ tracks }) => {
+  const dispatch = useDispatch();
+  const accessToken = useSelector((state) => state.accessToken);
+  let playlistId = useSelector((state) => state.playlistId);
+
   const openPlaylist = useCallback(async () => {
-    if (!token) {
+    if (!accessToken) {
       window.localStorage.setItem('tracks', JSON.stringify(tracks));
-      <Login />
+      Login();
       return;
     }
     const getUserId = async () => {
       const res = await fetch('https://api.spotify.com/v1/me', {
-        headers: getHeaders(token),
+        headers: getHeaders(accessToken),
       }).then((res) => res.json());
       //TODO: handle error
       return res.id;
     };
     const userId = await getUserId();
     if (!playlistId) {
-      playlistId = await createPlaylist(token, userId);
+      playlistId = await createPlaylist(accessToken, userId);
       dispatch(set_playlist_id(playlistId));
     }
-    await populatePlaylist(playlistId, tracks, token);
+    await populatePlaylist(playlistId, tracks, accessToken);
     const playlistUrl = `https://open.spotify.com/playlist/${playlistId}`;
     window.open(playlistUrl);
-  }, [tracks, token, playlistId, dispatch]);
+  }, [tracks, accessToken, playlistId, dispatch]);
 
   useEffect(() => {
     if (window.localStorage.getItem('tracks')) {
@@ -74,17 +78,10 @@ const createPlaylist = async (accessToken, userId) => {
     }
   }, [openPlaylist]);
 
-    return (
-      <div>
-      <h1 className='title'>Your Playlist has been Created!</h1>
-
-      <Link to ={"/webplayer"} className="moody-btn">
-        Play on Moodify
-      </Link>
-
-      <a href="https://open.spotify.com/" className="moody-btn" target="_blank" rel="noopener noreferrer">
-        Play on Spotify
-      </a>
-      </div>
-    );
-}
+  return (
+    <Button onClick={openPlaylist}>
+      Create Playlist
+      <spotifyLogo src={spotifyLogo} alt="Spotify Logo" />
+    </Button>
+  );
+};

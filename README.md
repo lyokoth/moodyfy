@@ -112,3 +112,13 @@ MIT
 ![Auth](https://github.com/lyokoth/moodyfy/blob/master/src/images/spotify-auth.png)
 
   
+
+- Mood maker:
+
+![alt mood ss](./src/images/alt%20mood%20ss.png)
+
+
+
+- Created Playlist (spotify app, based on Ling Tosite Sigure):
+
+![Created playlist](./src//images/IMG_9161.jpg)

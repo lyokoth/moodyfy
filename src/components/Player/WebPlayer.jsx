@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './WebPlayer.css';
-import './Player'; 
+import './Player';
 import '../SideBar/Sidebar';
 import Sidebar from '../SideBar/Sidebar';
+import Player from './Player';
 
 
 function WebPlayer(props , token) {
@@ -63,6 +64,7 @@ function WebPlayer(props , token) {
   return (
     <>
       <Sidebar>
+        <Player>
       <div className="container">
         <div className="main-wrapper">
           <img
@@ -77,7 +79,6 @@ function WebPlayer(props , token) {
             <div className="now-playing__artist">
               {current_track.artists[0].name}
             </div>
-
             <button
               className="btn-spotify"
               onClick={() => {
@@ -107,7 +108,9 @@ function WebPlayer(props , token) {
           </div>
         </div>
       </div>
+      </Player>
       </Sidebar>
+
     </>
   );
 }

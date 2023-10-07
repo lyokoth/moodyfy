@@ -1,3 +1,15 @@
+.sidebar {
+  min-width: 200px;
+  width: 20%;
+  background-color: light-black;
+  }
+
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .sidebarOption {
     display: flex;
     align-items: center;
@@ -81,7 +93,7 @@
 }
 
 .sidebar__title {
-  color:  aqua
+  color:  #9b78cc;
 }
 
 .button {
@@ -101,3 +113,38 @@
   cursor: pointer;
 }
 
+.top__links {
+  display: flex;
+  flex-direction: column;
+}
+  
+.logo {
+    text-align: center;
+    margin: 1rem 0;
+}
+    img {
+      max-inline-size: 80%;
+      block-size: auto;
+    }
+  
+  ul {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+    li {
+      display: flex;
+      gap: 1rem;
+      cursor: pointer;
+      transition: 0.3s ease-in-out;
+      &:hover {
+        color: white;
+      }
+    }
+
+    .playlists :hover 
+    {
+     color: #9b78cc;
+    }
