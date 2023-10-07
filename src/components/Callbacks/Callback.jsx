@@ -1,27 +1,35 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import './Callback.css';
 import Mood from "../Mood/Mood";
 
 
-function Callback({ onTokenRetrieved }) {
-   
+function Callback() {
+   const [access_token, setAccessToken] = useState(null);
+   const [isLoading, setLoading] = useState(true);
     useEffect(() => {
         // Parse the URL to extract the access token
         const hashParams = window.location.hash.substring(1).split("&");
         const tokenParam = hashParams.find(param => param.startsWith("access_token="));
         
         if (tokenParam) {
-            const accessToken = tokenParam.split("=")[1];
-            onTokenRetrieved(accessToken); // Pass the access token to your callback function
+            const token = tokenParam.split("=")[1];
+            setAccessToken(token)
         }
-    }, [onTokenRetrieved]);
+
+        setLoading(false);
+        
+    }, []);
        
    
     return (
         <div>
-          <h1 className="typed-out">Redirecting you to Moodify....</h1> : <Mood />
+          {isLoading ? (
+            <h1 className="typed-out">Redirecting you to Moodify....</h1>
+          ) : (
+          access_token ? <Mood access_token={access_token} />: null
           
+    )}
           </div>
    
 

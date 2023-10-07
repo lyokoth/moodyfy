@@ -6,10 +6,12 @@
     height: 40px;
     cursor: pointer;
     transition: 200ms color ease-in;
+    border: 1px solid grey;
+    border-radius: 4px
   }
   
   .sidebarOption:hover {
-    color: white;
+    color:  #f0f0f0;
   }
   
   .sidebarOption__icon {

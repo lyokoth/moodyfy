@@ -10,7 +10,6 @@ const clientId = "d208be818d2242c89febb3207ba06e89";
 export default function Login({ onTokenRetrieved }) {
   
 
-
   const url = window.location.href; 
 
   const urlParams = new URLSearchParams(url.split('#')[1]);

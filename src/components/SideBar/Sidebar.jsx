@@ -3,8 +3,9 @@ import "./Sidebar.css";
 import SidebarOption from "./SidebarOption";
 import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
-import { LibraryMusic } from "@mui/icons-material";
+import { Add, LibraryMusic } from "@mui/icons-material";
 import Playlists from "../Playlists/Playlists";
+import { QueueMusic } from "@mui/icons-material";
 
 
 export default function Sidebar() {
@@ -36,11 +37,14 @@ export default function Sidebar() {
 
 
   return (
+    <div className="flex">
     <div className="sidebar">
-      <strong className="sidebar__title">Main</strong>
+      <br />
+      <strong className="sidebar__title">MAIN</strong>
       <br /> 
       <hr />
-      
+      <SidebarOption title="Recently Played" Icon={QueueMusic} />
+      <br />
       <SidebarOption title="Home" Icon={HomeIcon} />
       <SidebarOption title="Search" Icon={SearchIcon} />
       <SidebarOption title="Your Library" Icon={LibraryMusic} />
@@ -48,10 +52,12 @@ export default function Sidebar() {
       <strong className="sidebar__title">PLAYLISTS</strong>
       <hr />
       <div className="add-button">
-            <div className="button">
-            Add New Playlist{addNewPlaylist}
-            </div>
-          </div>
+       <br />
+            <div className="button" onClick={addNewPlaylist}>
+        <SidebarOption title="Create New Playlist" Icon={Add} />
+        </div>
+        </div>
+    
  
       {playlists?.items?.map((playlist) => (
         <SidebarOption title={playlist.data_title}
@@ -60,6 +66,7 @@ export default function Sidebar() {
                         />
                             ))}
                             <Playlists />
+                            </div>
                             </div>
   );
       }

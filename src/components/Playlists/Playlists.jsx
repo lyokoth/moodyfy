@@ -11,6 +11,7 @@ export default function Playlists() {
       const response = await axios.get(
         "https://api.spotify.com/v1/me/playlists",
         {
+          params: { limit: 50, offset: 0}, 
           headers: {
             Authorization: "Bearer " + token,
             "Content-Type": "application/json",

@@ -3,9 +3,9 @@ import "./Mood.css";
 import { Link } from "react-router-dom";
 import SpotifyWebApi from "spotify-web-api-js";
 
-import axios from "axios";
-import { reducerCases } from "../../utils/Constants";
 import { useStateProvider } from "../../utils/StateProvider";
+import  dispatch, { fetchUserInfo }  from "../User/User";
+import axios from "axios";
 // images
 import depressed from './images/depressed.jpg';
 import sad from './images/sad.jpg';
@@ -16,47 +16,32 @@ const spotifyApi = new SpotifyWebApi();
 
 function Mood() {
   const [moodValue, setMoodValue] = useState(0.5);
-  const [{ token }, dispatch] = useStateProvider();
+  const [{ userId, token }, dispatch] = useStateProvider();
 
-  // Function to fetch user data
   useEffect(() => {
-    const getUserInfo = async () => {
-      const { data } = await axios.get("https://api.spotify.com/v1/me", {
-        headers: {
-          Authorization: "Bearer " + token,
-          "Content-Type": "application/json",
-        },
-      });
-      const userInfo = {
-        userId: data.id,
-        userUrl: data.external_urls.spotify,
-        name: data.display_name,
-      };
-      dispatch({ type: reducerCases.SET_USER, userInfo });
-    };
-    getUserInfo();
-  }, [dispatch, token]);
-  
+    fetchUserInfo(token, dispatch);
+  }, [token, dispatch]);
+
+  // Function to fetch user data -- moved to User.js
+     // *access_token is located in the console after logging in
+  const access_token = token;  
+      // Construct the playlist creation URL
+      const playlist_url = `https://api.spotify.com/v1/me/playlists`;
+      // const playlist_url = `https://api.spotify.com/v1/users/${userId}/playlists`;
+
   // Function to create a mood-based playlist
   async function fetchMood(moodValue) {
     try {
-      // Ensure you have a valid access_token
-      const access_token = "YOUR_ACCESS_TOKEN"; // Replace with your access token
-
-      // Construct the playlist creation URL
-      const playlist_url = `https://api.spotify.com/v1/me/playlists`;
-
-      // Create the playlist
       const response = await fetch(playlist_url, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Authorization': `Bearer ${access_token}`,
-          'Content-Type': 'application/json',
+          Authorization: `Bearer ${access_token}`,
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name: "Moodify Playlist",
+          name: "Moodify",
+          description: "Recommendation Playlist",
           public: true,
-          description: 'Playlist created in Moodify',
         }),
       });
 
@@ -64,25 +49,31 @@ function Mood() {
         const data = await response.json();
         const playlist_id = data.id;
 
-        // Get mood-based recommendations
-        const recommendationsResponse = await spotifyApi.getRecommendations({
-          seed_tracks: ["10FC7rI5KzGmyTHowOoebw"],
-          target_valence: moodValue,
-        });
+        const recommendationsResponse = await axios.get(`https://api.spotify.com/v1/recommendations?seed_artists=00DuPiLri3mNomvvM3nZvU&seed_genres=j-rock&seed_tracks=4zTHFEsROPDTEYlWTQcAXN&target_valence=${moodValue}`, {
+      headers: {
+        'Authorization': `Bearer ${access_token}`,
+      },
+    });
+       const tracks = recommendationsResponse.data.tracks.map((track) => track.uri);
 
-        const trackUri = recommendationsResponse.tracks.map((track) => track.uri);
+       await axios.post(`https://api.spotify.com/v1/playlists/${playlist_id}/tracks`, {
+      uris: tracks,
+    }, {
+      headers: {
+        'Authorization': `Bearer ${access_token}`,
+      },
+    });
 
-        // Add tracks to the playlist
-        await spotifyApi.addTracksToPlaylist(playlist_id, trackUri);
-
-        console.log("Your Playlist has been created!");
+        console.log("Playlist created!");
       } else {
-        console.error('Error creating playlist:', response.status);
+        console.log("Error creating playlist:", response.status);
       }
     } catch (error) {
-      console.error('Error creating playlist:', error);
+      console.log(error);
     }
   }
+
+ 
 
   // Handle mood change
   const moodChange = async (e) => {
@@ -108,7 +99,7 @@ function Mood() {
         <div className="container-fluid text-center">
             <div className="row">
                 <div className="col">
-                    <h1 className="mood-header">Hello, $`{"User"} ! </h1>
+                    <h1 className="mood-header">Hello, kenyamegami! </h1>
                 </div>
             </div>
             <div className="container-fluid text-center">
