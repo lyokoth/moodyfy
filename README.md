@@ -121,4 +121,4 @@ MIT
 
 - Created Playlist (spotify app, based on Ling Tosite Sigure):
 
-![playlist](./src//images/IMG_9161.jpg)
+![Created playlist](./src//images/IMG_9161.jpg)
